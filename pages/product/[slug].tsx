@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import { urlFor, client } from '../../lib/client'
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
@@ -13,34 +13,37 @@ interface props {
     price?: string
   },
   products: {
-    map(arg0: (item: { _id: React.Key | null | undefined; }) => JSX.Element): React.ReactNode;
-    slug:{current: string}
-    image?: HTMLImageElement | any,
-    name?: string,
-    detailes?: string,
-    price?: string
+    map(arg0: (item: { _id: React.Key | null | undefined; slug:{current?: string}}) => JSX.Element): React.ReactNode;
   }
 }
+
 const ProductDetails = ({product, products}: props) => {
 
   const {image, name, detailes, price} = product;
-  console.log(product , products);
+
+  const [index, setIndex] = useState(0)
+   
   return (
     <div>
       <div className="product-detail-container">
         <div>
           <div className='image-container'>
-            <img src={`${urlFor(image && image[0])}`} alt="" />
+            <img 
+            src={`${urlFor(image && image[index])}`} 
+            alt="" 
+            className='product-detail-image'/>
           </div>
-          {/* <div className='small-images-container'>
-            {image?.map((item, i) => (
-              <img 
+          <div className='small-images-container'>
+            {image?.map((item: any, i: any) => (
+              <img
+              key={i} 
               src={`${urlFor(item)}`} 
-              className=''
-              onMouseEnter=''
+              className={i === index ? 'small-image selected-image' : 'small-image'}
+              onMouseEnter={() => setIndex(i)}
               alt="" />
             ))}
-          </div> */}
+            {console.log(image)}
+          </div>
         </div>
 
         <div className='product-detail-desc'>
