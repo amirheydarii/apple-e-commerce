@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { urlFor, client } from '../../lib/client'
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { Product } from '../../components';
+import { useStateContext } from '../../context/StateContext'
 
 interface props {
   product:{
@@ -22,6 +23,8 @@ const ProductDetails = ({product, products}: props) => {
   const {image, name, detailes, price} = product;
 
   const [index, setIndex] = useState(0)
+
+  const {incQty, decQty, qty, onAdd}:any = useStateContext();
    
   return (
     <div>
@@ -66,11 +69,15 @@ const ProductDetails = ({product, products}: props) => {
           <div className='quantity'>
             <h3>Quantity</h3>
             <p className='quantity-desc'>
-              <span className='minus'
+              <span 
+              className='minus' 
+              onClick={decQty}
               ><AiOutlineMinus/> </span>
               <span className='num'
-              >0</span>
-              <span className='plus'
+              >{qty}</span>
+              <span 
+              className='plus' 
+              onClick={incQty}
               ><AiOutlinePlus/> </span>
             </p>
           </div>
@@ -78,7 +85,7 @@ const ProductDetails = ({product, products}: props) => {
             <button 
             type='button'
             className='add-to-cart'
-            // onClick={}
+            onClick={() => onAdd(product, qty)}
             >Add to Cart</button>
             <button 
             type='button'

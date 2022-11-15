@@ -1,14 +1,39 @@
 import { createContext, useContext, useState, useEffect, ReactNode, ReactPortal} from "react";
-import { Toast } from "react-hot-toast";
+import toast, { Toast } from "react-hot-toast";
 
-const Context = createContext()
+const Context = createContext({})
 
 export const StateContext = ({children}: ReactNode|any) => {
     const [showCart, setShowCart] = useState(false)
-    const [cartItem, setCartItem] = useState()
-    const [totalPrice, setTotalPrice] = useState()
-    const [totalQuantities, setTotalQuantities] = useState()
+    const [cartItem, setCartItem]:any = useState([])
+    const [totalPrice, setTotalPrice]:any = useState()
+    const [totalQuantities, setTotalQuantities]:any = useState()
     const [qty, setQty] = useState(1)
+
+    const onAdd = (product: { _id: any; price: number; quantity: any; name: any; }, quantity: number) => {
+        const checkProductInCart = cartItem.find((item: { _id: any; }) => item._id === product._id);
+
+        setTotalPrice((prevTotalPrice: number) => prevTotalPrice + product.price * quantity)
+        setTotalQuantities((prevTotalQuanities: number) => prevTotalQuanities + quantity)
+
+        if (checkProductInCart) {
+
+            const updatedCartItems: any = cartItem.map((cartProduct: {_id: any; quanitity: number }) => {
+                if (cartProduct._id === product._id) return {
+                    ...cartProduct,
+                    quantity: cartProduct.quanitity + quantity
+                }
+            })
+
+            setCartItem(updatedCartItems);
+        } else {
+            product.quantity = quantity;
+
+            setCartItem([...cartItem, {...product}])
+        }
+
+        toast.success(`${qty} ${product.name} added to the cart`)
+    }
 
     const incQty = () => {
         setQty((prevQty) => prevQty + 1)
@@ -29,9 +54,14 @@ export const StateContext = ({children}: ReactNode|any) => {
             cartItem,
             totalPrice,
             totalQuantities,
-            qty
+            qty,
+            incQty,
+            decQty,
+            onAdd
         }}>
             {children}
         </Context.Provider>
     )
 }
+
+export const useStateContext = () => useContext(Context)
