@@ -7,7 +7,7 @@ export const StateContext = ({children}: ReactNode|any) => {
     const [showCart, setShowCart] = useState(false)
     const [cartItem, setCartItem]:any = useState([])
     const [totalPrice, setTotalPrice]:any = useState()
-    const [totalQuantities, setTotalQuantities]:any = useState()
+    const [totalQuantities, setTotalQuantities]:any = useState(0)
     const [qty, setQty] = useState(1)
 
     const onAdd = (product: { _id: any; price: number; quantity: any; name: any; }, quantity: number) => {
@@ -51,6 +51,7 @@ export const StateContext = ({children}: ReactNode|any) => {
         <Context.Provider 
         value={{
             showCart,
+            setShowCart,
             cartItem,
             totalPrice,
             totalQuantities,
