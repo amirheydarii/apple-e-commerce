@@ -6,7 +6,7 @@ const Context = createContext({})
 export const StateContext = ({children}: ReactNode|any) => {
     const [showCart, setShowCart] = useState(false)
     const [cartItem, setCartItem]:any = useState([])
-    const [totalPrice, setTotalPrice]:any = useState()
+    const [totalPrice, setTotalPrice]:any = useState(0)
     const [totalQuantities, setTotalQuantities]:any = useState(0)
     const [qty, setQty] = useState(1)
 
