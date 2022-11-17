@@ -38,7 +38,14 @@ export const StateContext = ({children}: ReactNode|any) => {
         toast.success(`${qty} ${product.name} added to the cart`)
     }
 
+    const onRemove = (product: { _id: number; }) => {
+        foundProduct = cartItem.find((item: { _id: number; }) => item._id === product._id)
+        const newCartItem = cartItem.filter((item: { _id: number; }) => item._id !== product._id)
 
+        setTotalPrice((prev: number) => prev - foundProduct.price * foundProduct.quantity)
+        setTotalQuantities((prev: number) => prev - foundProduct.quantity)
+        setCartItem(newCartItem)
+    }
 
     const toggleCartItemQuanntity = (id:number, value:any) => {
         foundProduct = cartItem.find((item: { _id: number; }) => item._id === id)
