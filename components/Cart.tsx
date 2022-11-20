@@ -14,12 +14,15 @@ import toast from "react-hot-toast";
 import { useStateContext } from "../context/StateContext";
 import { urlFor } from "../lib/client";
 
+
 const Cart = () => {
   const cartRef = useRef();
   const { totalPrice, totalQuantities, cartItem, setShowCart, toggleCartItemQuanntity, onRemove }: any =
     useStateContext();
+
+    
   return (
-    <div className="cart-wrapper" ref={cartRef}>
+    <div className="cart-wrapper">
       <div className="cart-container">
         <button
           type="button"
@@ -51,7 +54,7 @@ const Cart = () => {
             cartItem.map((item: any) => (
               <div className="product" key={item._id}>
                 <img
-                  src={urlFor(item?.image[0])}
+                  src={`${urlFor(item?.image[0])}`}
                   alt=""
                   className="cart-product-image"
                 />
@@ -93,7 +96,7 @@ const Cart = () => {
               <button 
               className="btn"
               type="button"
-              onClick=''
+              // onClick={}
               >
                  Pay with Stripe
               </button>
