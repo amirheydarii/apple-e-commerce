@@ -4,6 +4,7 @@ import { BsBagCheckFill } from "react-icons/bs";
 
 
 import { useStateContext } from "../context/StateContext";
+import { runFirework } from '../lib/utils'
 
 function Success(): any {
   const { setCartItem, setTotalPrice, setTotalQuantities }: any = useStateContext();
@@ -13,9 +14,10 @@ function Success(): any {
     setCartItem([])
     setTotalPrice(0)
     setTotalQuantities(0)
+    runFirework()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
-
   return (
     <div className="success-wrapper">
       <div className="success">

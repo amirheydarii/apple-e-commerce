@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import { Key, useRef } from "react";
 import Link from "next/link";
 import {
   AiOutlineMinus,
@@ -16,7 +15,6 @@ import { urlFor } from "../lib/client";
 
 
 const Cart = () => {
-  const cartRef = useRef();
   const { totalPrice, totalQuantities, cartItem, setShowCart, toggleCartItemQuanntity, onRemove }: any =
     useStateContext();
 
@@ -96,9 +94,9 @@ const Cart = () => {
               <button 
               className="btn"
               type="button"
-              // onClick={}
+              onClick={() => setShowCart(false)}
               >
-                 Pay with Stripe
+                 <Link href='/success'>Pay with Stripe</Link> 
               </button>
             </div>
           </div>

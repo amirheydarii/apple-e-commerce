@@ -5,6 +5,7 @@ import { urlFor, client } from '../../lib/client'
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { Product } from '../../components';
 import { useStateContext } from '../../context/StateContext'
+import Link from 'next/link';
 
 interface props {
   product:{
@@ -90,8 +91,7 @@ const ProductDetails = ({product, products}: props) => {
             <button 
             type='button'
             className='buy-now'
-            // onClick={}
-            >Buy Now</button>
+            ><Link href='/success'>Buy Now</Link></button>
           </div>
         </div>
       </div>
